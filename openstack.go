@@ -15,10 +15,10 @@ import (
 
 type usage struct {
 	CPULimit     int
-	CPUUsed      int
-	RAMUsed      int
+	CPUInUse     int
+	RAMInUse     int
 	RAMLimit     int
-	VolumesUsed  int
+	VolumesInUse int
 	VolumesLimit int
 }
 
@@ -88,16 +88,16 @@ func metricsHandler() {
 			usage := new(usage)
 
 			usage.CPULimit = quotaset.Cores.Limit
-			usage.CPUUsed = quotaset.Cores.InUse
+			usage.CPUInUse = quotaset.Cores.InUse
 			usage.RAMLimit = quotaset.RAM.Limit
-			usage.RAMUsed = quotaset.RAM.InUse
-			usage.VolumesUsed = quotasetStorage.Volumes.InUse
+			usage.RAMInUse = quotaset.RAM.InUse
+			usage.VolumesInUse = quotasetStorage.Volumes.InUse
 			usage.VolumesLimit = quotasetStorage.Volumes.Limit
 
 			metric := new(metrics)
-			metric.CPUUsed = usagePercentage(usage.CPUUsed, usage.CPULimit)
-			metric.RAMUsed = usagePercentage(usage.RAMUsed, usage.RAMLimit)
-			metric.VolumesUsed = usagePercentage(usage.VolumesUsed, usage.VolumesLimit)
+			metric.CPUUsed = usagePercentage(usage.CPUInUse, usage.CPULimit)
+			metric.RAMUsed = usagePercentage(usage.RAMInUse, usage.RAMLimit)
+			metric.VolumesUsed = usagePercentage(usage.VolumesInUse, usage.VolumesLimit)
 
 			gaugeCPU.Set(metric.CPUUsed)
 			gaugeRAM.Set(metric.RAMUsed)
