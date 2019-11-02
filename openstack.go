@@ -52,11 +52,7 @@ var (
 )
 
 func usagePercentage(usage, limit int) float64 {
-
-	var percentage float64
-	percentage = float64((usage * 100) / limit)
-	return percentage
-
+	return float64((usage * 100) / limit)
 }
 
 func metricsHandler() {
